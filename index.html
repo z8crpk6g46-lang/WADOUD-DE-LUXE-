@@ -72,6 +72,7 @@
 
 <script>
 const products = [
+ {name:"ENSEMBLE JUL",price:12500,cat:"Ensembles",sizes:"S M L XL XXL",imgs:["ensemble-jul-1.jpg","ensemble-jul-2.jpg"]},
  {name:"T-Shirt Lacoste",price:4800,cat:"T-Shirts",sizes:"S M L XL XXL"},
  {name:"Veste Nike",price:8900,cat:"Vestes",sizes:"S M L XL XXL"},
  {name:"Pantalon Cargo",price:5500,cat:"Pantalons",sizes:"S M L XL XXL"},
@@ -80,9 +81,20 @@ const products = [
 ];
 const grid=document.querySelector(".products"), count=document.querySelector("#cartCount");
 let cart=0;
+function visual(p){
+ if(p.imgs&&p.imgs.length){
+  return `<img src="${p.imgs[0]}" alt="${p.name}" data-imgs="${p.imgs.join(",")}" data-i="0" onclick="swapImg(this)" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;cursor:pointer">`;
+ }
+ return p.cat==="Chaussures"?"👟":p.cat==="Pantalons"?"👖":p.cat==="Vestes"?"🧥":p.cat==="Ensembles"?"🧥":"👕";
+}
+function swapImg(el){
+ const list=el.dataset.imgs.split(",");
+ const next=(parseInt(el.dataset.i)+1)%list.length;
+ el.dataset.i=next; el.src=list[next];
+}
 function render(list=products){
  grid.innerHTML=list.map((p,i)=>`<article class="product">
-   <div class="product-img">${p.cat==="Chaussures"?"👟":p.cat==="Pantalons"?"👖":p.cat==="Vestes"?"🧥":"👕"}</div>
+   <div class="product-img">${visual(p)}</div>
    <h3>${p.name}</h3><strong>${p.price.toLocaleString("fr-FR")} DA</strong>
    <small>${p.sizes}</small>
    <button onclick="addCart()">Ajouter au panier</button>
