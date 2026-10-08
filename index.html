@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WADOUD DE LUXE — Men's Fashion</title>
+  <meta name="description" content="WADOUD DE LUXE — Mode homme, élégance et qualité.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">
+    <span>🚚 Livraison dans toutes les wilayas</span>
+    <span>💳 Paiement à la livraison</span>
+    <span>☎ Service client : 07 12 34 56 78</span>
+  </div>
+
+  <header>
+    <div class="header-main">
+      <div class="search"><input id="search" placeholder="Rechercher un produit..."><button>⌕</button></div>
+      <a class="logo" href="#"><small>♛</small>WADOUD DE LUXE<span>Men's Fashion · Élégance · Qualité</span></a>
+      <div class="icons"><span>♙</span><span>♡</span><span>🛒 <b id="cartCount">0</b></span></div>
+    </div>
+    <nav>
+      <a href="#home">Accueil</a><a href="#new">Nouveautés</a><a href="#products">T-Shirts</a>
+      <a href="#products">Pantalons</a><a href="#products">Vestes</a><a href="#promo">Promotions</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <p>STYLE · CONFORT · ÉLÉGANCE</p>
+        <h1>WADOUD DE LUXE</h1>
+        <h2>Des vêtements qui révèlent votre style</h2>
+        <a class="btn" href="#products">Découvrir la collection →</a>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div><b>T-Shirts</b><span>Voir la collection →</span></div>
+      <div><b>Pantalons</b><span>Voir la collection →</span></div>
+      <div><b>Vestes</b><span>Voir la collection →</span></div>
+      <div><b>Chaussures</b><span>Voir la collection →</span></div>
+      <div class="promo-card"><b>Promotions</b><span>Jusqu'à -50%</span></div>
+    </section>
+
+    <section id="new" class="section">
+      <div class="section-title"><h2>Nouveautés</h2><a href="#products">Voir tout →</a></div>
+      <div id="products" class="products"></div>
+    </section>
+
+    <section id="promo" class="banners">
+      <div><span>LACOSTE</span><h2>T-Shirts Lacoste</h2><p>Qualité & style intemporel</p><a class="btn" href="#products">Découvrir →</a></div>
+      <div><span>WADOUD DE LUXE</span><h2>Nouvelle Collection</h2><p>Le meilleur de la mode homme</p><a class="btn outline" href="#products">Voir la collection →</a></div>
+    </section>
+
+    <section class="benefits">
+      <div>🚚 <b>Livraison rapide</b><small>Dans toutes les wilayas</small></div>
+      <div>🛡 <b>Paiement à la livraison</b><small>100% sécurisé</small></div>
+      <div>🎧 <b>Service client</b><small>À votre écoute</small></div>
+      <div>↻ <b>Échange et retour</b><small>Sous 7 jours</small></div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-brand">♛<strong>WADOUD DE LUXE</strong><small>Men's Fashion · Élégance · Qualité</small></div>
+    <div><h3>Liens utiles</h3><a href="#home">Accueil</a><a href="#new">Nouveautés</a><a href="#products">Produits</a><a href="#promo">Promotions</a></div>
+    <div><h3>Informations</h3><a href="#">À propos</a><a href="#">Livraison</a><a href="#">Paiement</a><a href="#">FAQ</a></div>
+    <div><h3>Suivez-nous</h3><p>Instagram · Facebook · TikTok</p><a class="whatsapp" href="https://wa.me/213712345678" target="_blank">WhatsApp : contactez-nous</a></div>
+  </footer>
+  <div class="copyright">© 2026 WADOUD DE LUXE — Tous droits réservés.</div>
+
+<script>
+const products = [
+ {name:"T-Shirt Lacoste",price:4800,cat:"T-Shirts",sizes:"S M L XL XXL"},
+ {name:"Veste Nike",price:8900,cat:"Vestes",sizes:"S M L XL XXL"},
+ {name:"Pantalon Cargo",price:5500,cat:"Pantalons",sizes:"S M L XL XXL"},
+ {name:"Polo Ralph Lauren",price:5200,cat:"T-Shirts",sizes:"S M L XL XXL"},
+ {name:"Baskets Nike Air Force 1",price:9500,cat:"Chaussures",sizes:"36 37 38 39 40 41 42 43 44"}
+];
+const grid=document.querySelector(".products"), count=document.querySelector("#cartCount");
+let cart=0;
+function render(list=products){
+ grid.innerHTML=list.map((p,i)=>`<article class="product">
+   <div class="product-img">${p.cat==="Chaussures"?"👟":p.cat==="Pantalons"?"👖":p.cat==="Vestes"?"🧥":"👕"}</div>
+   <h3>${p.name}</h3><strong>${p.price.toLocaleString("fr-FR")} DA</strong>
+   <small>${p.sizes}</small>
+   <button onclick="addCart()">Ajouter au panier</button>
+ </article>`).join("");
+}
+function addCart(){cart++;count.textContent=cart}
+document.querySelector("#search").addEventListener("input",e=>{
+ const q=e.target.value.toLowerCase();
+ render(products.filter(p=>(p.name+" "+p.cat).toLowerCase().includes(q)));
+});
+render();
+</script>
+</body>
+</html>
