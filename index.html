@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>WADOUD DE LUXE — Mode homme</title>
+<style>
+:root{--ink:#101a2e;--gold:#d7aa55;--gold2:#f0cf86;--white:#fff;--mute:#b9bcc5;--line:rgba(255,255,255,.14);--panel:rgba(10,10,10,.78)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#fff;background:#050505 url("wadoud-background.jpg") center top/cover fixed no-repeat;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.86));z-index:-1}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1150px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{font-weight:900;letter-spacing:2px;color:var(--gold2);font-size:18px}.langs{display:flex;gap:6px}.langs button{border:1px solid var(--line);background:#111;color:#fff;border-radius:8px;padding:7px 9px;font-size:12px}.langs button.active{background:var(--gold);color:#111}
+.hero{max-width:1150px;margin:auto;padding:80px 18px 55px;text-align:center}.hero h1{font-size:clamp(35px,7vw,72px);margin:0 0 12px;letter-spacing:3px;color:#f5d997}.hero p{color:#ddd;max-width:650px;margin:0 auto 25px;line-height:1.7}.cta{display:inline-block;background:var(--gold);color:#111;border:0;border-radius:10px;padding:13px 22px;font-weight:800}
+.wrap{max-width:1150px;margin:auto;padding:20px 18px 70px}.section-title{text-align:center;margin:20px 0 25px}.section-title h2{margin:0;color:var(--gold2)}.section-title p{color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.card{background:rgba(12,12,12,.82);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 15px 45px rgba(0,0,0,.25)}.card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.card-body{padding:15px}.card h3{margin:0 0 7px}.price{color:var(--gold2);font-size:20px;font-weight:900}.desc{color:#c5c5c5;line-height:1.5;font-size:14px}.card button{width:100%;margin-top:12px;border:0;border-radius:9px;padding:12px;background:var(--gold);font-weight:800;color:#111}
+footer{border-top:1px solid var(--line);padding:25px 18px;text-align:center;color:#aaa;background:rgba(0,0,0,.65)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;padding:15px;overflow:auto}.overlay.show{display:block}.sheet{max-width:720px;margin:30px auto;background:#101010;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 70px #000;overflow:hidden}.sheet-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.close{background:none;border:0;color:#fff;font-size:28px}.sheet-body{padding:18px}.product-top{display:grid;grid-template-columns:180px 1fr;gap:18px}.product-top img{width:100%;border-radius:12px}.sizes{display:flex;gap:7px;flex-wrap:wrap}.size{border:1px solid var(--line);background:#151515;color:#fff;padding:9px 13px;border-radius:8px}.size.sel{background:var(--gold);color:#111}.qty{display:flex;align-items:center;gap:10px;margin:15px 0}.qty button{width:34px;height:34px;border:1px solid var(--line);background:#171717;color:#fff;border-radius:7px}.qty b{min-width:30px;text-align:center}
+.form{display:grid;gap:11px;margin-top:18px}.form label{font-size:13px;color:#ddd}.form input,.form select,.form textarea{width:100%;padding:12px;border:1px solid #333;background:#151515;color:#fff;border-radius:9px;outline:none}.form textarea{min-height:80px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ship{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ship label{border:1px solid var(--line);padding:12px;border-radius:10px;background:#151515;cursor:pointer}.ship input{width:auto}.ship .selected{border-color:var(--gold);background:rgba(215,170,85,.12)}
+.total{margin-top:15px;border-top:1px solid var(--line);padding-top:15px;display:flex;justify-content:space-between;font-size:18px}.total strong{color:var(--gold2)}.send{width:100%;border:0;border-radius:10px;padding:14px;margin-top:14px;background:var(--gold);font-weight:900;color:#111}.send:disabled{opacity:.55;cursor:wait}.msg{display:none;padding:12px;border-radius:9px;margin-top:12px;text-align:center}.ok{background:#17351f;color:#a8efbb}.err{background:#431b1b;color:#ffb1b1}
+@media(max-width:650px){.product-top{grid-template-columns:1fr}.product-top img{max-height:280px;object-fit:cover}.row,.ship{grid-template-columns:1fr}.hero{padding-top:55px}.nav{align-items:flex-start}.langs{flex-wrap:wrap;justify-content:flex-end}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="brand">WADOUD DE LUXE</div><div class="langs"><button data-lang="ar">العربية</button><button data-lang="fr" class="active">Français</button><button data-lang="en">English</button></div></div></header>
+
+<section class="hero">
+<h1>WADOUD DE LUXE</h1>
+<p id="heroText">Mode homme premium. Élégance, qualité et livraison à travers l'Algérie.</p>
+<a class="cta" href="#collection" id="heroBtn">Voir la collection</a>
+</section>
+
+<main class="wrap" id="collection">
+<div class="section-title"><h2 id="collectionTitle">Notre collection</h2><p id="collectionSub">Découvrez notre sélection</p></div>
+<div class="grid">
+<article class="card">
+<img src="ensemble-jul-1.jpg" alt="ENSEMBLE JUL" onerror="this.style.display='none'">
+<div class="card-body"><h3>ENSEMBLE JUL</h3><div class="price">12 500 DA</div><p class="desc" id="prodDesc">Ensemble homme élégant et confortable.</p><button onclick="openP()">Commander</button></div>
+</article>
+</div>
+</main>
+
+<footer>WADOUD DE LUXE · <span id="phone">0779926216</span></footer>
+
+<div class="overlay" id="modal">
+<div class="sheet">
+<div class="sheet-head"><strong id="orderTitle">Commander</strong><button class="close" onclick="closeP()">×</button></div>
+<div class="sheet-body">
+<div class="product-top"><img src="ensemble-jul-1.jpg" alt="ENSEMBLE JUL"><div><h2>ENSEMBLE JUL</h2><div class="price">12 500 DA</div><p id="modalDesc">Choisissez votre taille puis renseignez vos coordonnées.</p><div class="sizes" id="sizes"></div><div class="qty"><button onclick="setQ(-1)">−</button><b id="qty">1</b><button onclick="setQ(1)">+</button></div></div></div>
+
+<div class="form">
+<div class="row">
+<div><label id="nameLabel">Nom complet</label><input id="name" autocomplete="name"></div>
+<div><label id="phoneLabel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+</div>
+<div><label id="addressLabel">Adresse</label><textarea id="address"></textarea></div>
+<div class="row">
+<div><label id="wilayaLabel">Wilaya</label><select id="wilaya" onchange="onWil()"><option value="">Choisir la wilaya</option></select></div>
+<div><label id="communeLabel">Commune</label><select id="commune" disabled><option value="">Choisir d'abord la wilaya</option></select></div>
+</div>
+<div><label id="deliveryLabel">Mode de livraison</label><div class="ship">
+<label id="homeBox"><input type="radio" name="delivery" value="home" checked onchange="setDelivery('home')"> 🏠 <span id="homeText">À domicile</span> — <b id="homePrice">—</b></label>
+<label id="deskBox"><input type="radio" name="delivery" value="desk" onchange="setDelivery('desk')"> 🏢 <span id="deskText">Stop Desk</span> — <b id="deskPrice">—</b></label>
+</div></div>
+<div class="total"><span id="totalLabel">Total</span><strong id="total">12 500 DA</strong></div>
+<button class="send" id="sendBtn" onclick="send()">Confirmer la commande</button>
+<div class="msg ok" id="okMsg"></div><div class="msg err" id="errMsg"></div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const ORDER_EMAIL="sami2000mca@gmail.com";
+const PRODUCT_PRICE=12500;
+const SIZES=["S","M","L","XL","XXL"];
+const TAR=[
+[1200,700],[700,400],[800,400],[700,400],[700,400],[700,400],[700,400],[1200,550],[400,250],[700,400],
+[1400,800],[700,400],[700,400],[700,400],[700,400],[450,300],[800,400],[700,400],[700,400],[700,400],
+[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[800,450],
+[700,400],[900,450],[2000,1500],[700,400],[650,400],[700,400],[1700,800],[700,400],[800,450],[700,400],
+[700,400],[650,400],[700,400],[700,400],[900,450],[700,400],[800,450],[700,400],[1200,600],null,
+[800,450],[1600,800],[1800,800],null,[800,450],[2000,2000],[800,450],[1000,600]
+];
+const WILAYAS=[
+[1,"أدرار"],[2,"الشلف"],[3,"الأغواط"],[4,"أم البواقي"],[5,"باتنة"],[6,"بجاية"],[7,"بسكرة"],[8,"بشار"],[9,"البليدة"],[10,"البويرة"],
+[11,"تمنراست"],[12,"تبسة"],[13,"تلمسان"],[14,"تيارت"],[15,"تيزي وزو"],[16,"الجزائر"],[17,"الجلفة"],[18,"جيجل"],[19,"سطيف"],[20,"سعيدة"],
+[21,"سكيكدة"],[22,"سيدي بلعباس"],[23,"عنابة"],[24,"قالمة"],[25,"قسنطينة"],[26,"المدية"],[27,"مستغانم"],[28,"المسيلة"],[29,"معسكر"],[30,"ورقلة"],
+[31,"وهران"],[32,"البيض"],[33,"إليزي"],[34,"برج بوعريريج"],[35,"بومرداس"],[36,"الطارف"],[37,"تندوف"],[38,"تيسمسيلت"],[39,"الوادي"],[40,"خنشلة"],
+[41,"سوق أهراس"],[42,"تيبازة"],[43,"ميلة"],[44,"عين الدفلى"],[45,"النعامة"],[46,"عين تموشنت"],[47,"غرداية"],[48,"غليزان"],[49,"تيميمون"],[50,"برج باجي مختار"],
+[51,"أولاد جلال"],[52,"بني عباس"],[53,"عين صالح"],[54,"عين قزام"],[55,"تقرت"],[56,"جانت"],[57,"المغير"],[58,"المنيعة"]
+];
+
+const I18N={
+fr:{hero:"Mode homme premium. Élégance, qualité et livraison à travers l'Algérie.",view:"Voir la collection",collection:"Notre collection",sub:"Découvrez notre sélection",order:"Commander",desc:"Ensemble homme élégant et confortable.",modal:"Choisissez votre taille puis renseignez vos coordonnées.",name:"Nom complet",phone:"Téléphone",address:"Adresse",wilaya:"Wilaya",commune:"Commune",delivery:"Mode de livraison",home:"À domicile",desk:"Stop Desk",total:"Total",confirm:"Confirmer la commande",chooseW:"Choisir la wilaya",chooseC:"Choisir d'abord la wilaya",success:"Commande envoyée avec succès. Nous vous contacterons pour confirmation.",error:"Impossible d'envoyer la commande. Réessayez."},
+en:{hero:"Premium men's fashion. Elegance, quality and delivery across Algeria.",view:"View collection",collection:"Our collection",sub:"Discover our selection",order:"Order",desc:"Elegant and comfortable men's outfit.",modal:"Choose your size and enter your details.",name:"Full name",phone:"Phone",address:"Address",wilaya:"Wilaya",commune:"Commune",delivery:"Delivery method",home:"Home delivery",desk:"Stop Desk",total:"Total",confirm:"Confirm order",chooseW:"Choose wilaya",chooseC:"Choose wilaya first",success:"Order sent successfully. We will contact you for confirmation.",error:"Could not send the order. Please try again."},
+ar:{hero:"أزياء رجالية فاخرة، أناقة وجودة مع التوصيل إلى جميع أنحاء الجزائر.",view:"شاهد المجموعة",collection:"مجموعتنا",sub:"اكتشف تشكيلتنا",order:"اطلب الآن",desc:"طقم رجالي أنيق ومريح.",modal:"اختر المقاس وأدخل معلوماتك.",name:"الاسم الكامل",phone:"رقم الهاتف",address:"العنوان",wilaya:"الولاية",commune:"البلدية",delivery:"طريقة التوصيل",home:"التوصيل إلى المنزل",desk:"Stop Desk",total:"المجموع",confirm:"تأكيد الطلب",chooseW:"اختر الولاية",chooseC:"اختر الولاية أولاً",success:"تم إرسال الطلب بنجاح. سنتصل بك لتأكيد الطلب.",error:"تعذر إرسال الطلب. حاول مرة أخرى."}
+};
+let lang="fr", qty=1, size="", delivery="home", communesCache={};
+
+function $(id){return document.getElementById(id)}
+function money(n){return Number(n).toLocaleString("fr-FR")+" DA"}
+function openP(){$("modal").classList.add("show");document.body.style.overflow="hidden";renderSizes();calc()}
+function closeP(){$("modal").classList.remove("show");document.body.style.overflow=""}
+function renderSizes(){$("sizes").innerHTML=SIZES.map(s=>`<button class="size ${size===s?"sel":""}" onclick="pick('${s}')">${s}</button>`).join("")}
+function pick(s){size=s;renderSizes()}
+function setQ(x){qty=Math.max(1,qty+x);$("qty").textContent=qty;calc()}
+function setDelivery(x){delivery=x;document.querySelectorAll(".ship label").forEach(e=>e.classList.remove("selected"));(x==="home"?$("homeBox"):$("deskBox")).classList.add("selected");calc()}
+function calc(){
+ let id=Number($("wilaya").value), t=TAR[id-1], ship=t?(delivery==="home"?t[0]:t[1]):0;
+ $("total").textContent=money(PRODUCT_PRICE*qty+ship);
+}
+function fillW(){
+ $("wilaya").innerHTML=`<option value="">${I18N[lang].chooseW}</option>`+WILAYAS.map(([id,n])=>`<option value="${id}">${id} — ${n}</option>`).join("");
+ $("commune").innerHTML=`<option value="">${I18N[lang].chooseC}</option>`;$("commune").disabled=true;
+}
+async function onWil(){
+ const id=Number($("wilaya").value), t=TAR[id-1];
+ $("homePrice").textContent=t?money(t[0]):"—";$("deskPrice").textContent=t?money(t[1]):"—";
+ if(!id){$("commune").innerHTML=`<option>${I18N[lang].chooseC}</option>`;$("commune").disabled=true;calc();return}
+ $("commune").disabled=true;$("commune").innerHTML="<option>Chargement...</option>";
+ try{
+  if(!communesCache[id]){
+   const r=await fetch("https://cdn.jsdelivr.net/npm/geoalgeria/data/ecommerce/communes.json",{cache:"force-cache"});
+   if(!r.ok) throw Error("communes");
+   const data=await r.json();communesCache[id]=data.filter(x=>String(x.wilaya_code??x.wilaya??x.code_wilaya)===String(id));
+  }
+  const list=communesCache[id];
+  $("commune").innerHTML=`<option value="">${I18N[lang].commune}</option>`+list.map(x=>`<option value="${x.name_fr||x.name||x.commune_name}">${x.name_fr||x.name||x.commune_name}</option>`).join("");
+  $("commune").disabled=false;
+ }catch(e){
+  $("commune").innerHTML="<option>Erreur de chargement — réessayez</option>";
+ }
+ calc();
+}
+function setL(l){
+ lang=l;document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr";
+ document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("active",b.dataset.lang===l));
+ const t=I18N[l];
+ $("heroText").textContent=t.hero;$("heroBtn").textContent=t.view;$("collectionTitle").textContent=t.collection;$("collectionSub").textContent=t.sub;
+ document.querySelectorAll(".card button").forEach(b=>b.textContent=t.order);$("prodDesc").textContent=t.desc;$("orderTitle").textContent=t.order;$("modalDesc").textContent=t.modal;
+ $("nameLabel").textContent=t.name;$("phoneLabel").textContent=t.phone;$("addressLabel").textContent=t.address;$("wilayaLabel").textContent=t.wilaya;$("communeLabel").textContent=t.commune;$("deliveryLabel").textContent=t.delivery;$("homeText").textContent=t.home;$("deskText").textContent=t.desk;$("totalLabel").textContent=t.total;$("sendBtn").textContent=t.confirm;fillW();
+}
+document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>setL(b.dataset.lang));
+async function send(){
+ const btn=$("sendBtn"); if(btn.disabled)return;
+ const name=$("name").value.trim(), tel=$("tel").value.trim(), address=$("address").value.trim(), wid=Number($("wilaya").value), commune=$("commune").value;
+ const t=TAR[wid-1];
+ $("okMsg").style.display="none";$("errMsg").style.display="none";
+ if(!size||!name||!tel||!address||!wid||!commune||!t){$("errMsg").textContent=I18N[lang].error;$("errMsg").style.display="block";return}
+ const ship=t[delivery==="home"?0:1], total=PRODUCT_PRICE*qty+ship, order="WDL-"+Date.now().toString(36).toUpperCase();
+ btn.disabled=true;btn.textContent="...";
+ const payload={
+  _subject:"Nouvelle commande WADOUD DE LUXE "+order,_captcha:"false",order_number:order,
+  product:"ENSEMBLE JUL",size,quantity:qty,customer_name:name,phone:tel,address,
+  wilaya:WILAYAS.find(x=>x[0]===wid)?.[1]||wid,commune,delivery:delivery==="home"?"À domicile":"Stop Desk",
+  delivery_price:ship,product_total:PRODUCT_PRICE*qty,total
+ };
+ try{
+  const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),8000);
+  const r=await fetch("https://formsubmit.co/ajax/"+ORDER_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload),keepalive:true,signal:ctrl.signal});
+  clearTimeout(timer);
+  if(!r.ok)throw Error("send");
+  $("okMsg").textContent=I18N[lang].success+" — "+order;$("okMsg").style.display="block";
+  btn.textContent=I18N[lang].confirm;
+ }catch(e){
+  $("errMsg").textContent=I18N[lang].error;$("errMsg").style.display="block";btn.disabled=false;btn.textContent=I18N[lang].confirm;
+ }
+}
+setDelivery("home");fillW();
+</script>
+</body>
+</html>
