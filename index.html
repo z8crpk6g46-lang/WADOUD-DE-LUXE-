@@ -6,9 +6,10 @@
 <title>WADOUD DE LUXE — Mode homme</title>
 <meta name="description" content="WADOUD DE LUXE : mode homme, livraison dans toutes les wilayas, paiement à la livraison.">
 <style>
-:root{--ink:#101a2e;--bg:#eef0f3;--amber:#e08a1e;--mute:#667085;--line:#dfe3ea;--r:14px}
+:root{--ink:#101a2e;--bg:#f5f6f8;--amber:#e08a1e;--mute:#667085;--line:#dfe3ea;--r:14px}
 *{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
 header{background:var(--ink);color:#fff;text-align:center;padding:14px 16px;position:sticky;top:0;z-index:5}
 header h1{font:600 22px/1 Georgia,"Times New Roman",serif;letter-spacing:.14em}
@@ -61,6 +62,15 @@ input,select{width:100%;padding:13px;border:1.5px solid var(--line);border-radiu
 .ok{text-align:center;padding:60px 22px}
 .ok i{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 18px;border-radius:50%;background:#1faa59;color:#fff;font-size:38px;font-style:normal}
 .ok h3{margin-bottom:10px}.ok p{color:var(--mute);margin:8px 0}.ok b{color:var(--ink);font-size:20px}
+.hero{background:radial-gradient(900px 320px at 85% -10%,#e08a1e33,transparent 60%),linear-gradient(135deg,#0b1428,#17294d 65%,#22385f);color:#fff;text-align:center;padding:46px 22px 52px;border-bottom:3px solid var(--amber)}
+.hero h2{font:600 30px/1.25 Georgia,"Times New Roman",serif;margin:0 auto 12px;max-width:560px}
+.hero p{opacity:.82;max-width:460px;margin:0 auto 24px}
+.cta{display:inline-block;background:var(--amber);color:#101a2e;font-weight:700;padding:14px 30px;border-radius:999px;text-decoration:none}
+.card{position:relative;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px #10203024}
+.card .badge{position:absolute;top:10px;inset-inline-start:10px;background:var(--amber);color:#101a2e;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
+footer{background:var(--ink);color:#aeb8cc;padding:30px 14px 40px}
+footer a{color:#fff}
 </style>
 </head>
 <body>
@@ -68,9 +78,10 @@ input,select{width:100%;padding:13px;border:1.5px solid var(--line);border-radiu
 <div class="lang"><button data-l="ar" onclick="setL('ar')">العربية</button><button data-l="fr" onclick="setL('fr')">Français</button><button data-l="en" onclick="setL('en')">English</button></div>
 <h1>WADOUD DE LUXE</h1><p data-k="tag"></p>
 </header>
+<section class="hero"><h2 data-k="h1"></h2><p data-k="h2"></p><a class="cta" href="#col" data-k="h3"></a></section>
 <div class="perks"><span data-k="p1"></span><span data-k="p2"></span><span data-k="p3"></span></div>
 <main>
-<h2 data-k="coll"></h2>
+<h2 data-k="coll" id="col"></h2>
 <div class="grid" id="grid"></div>
 </main>
 <footer><span data-k="q"></span> <a href="tel:0779926216" data-k="wa"></a><br>© 2026 WADOUD DE LUXE</footer>
@@ -120,9 +131,14 @@ input,select{width:100%;padding:13px;border:1.5px solid var(--line);border-radiu
 
 <script>
 /* ====== RÉGLAGES ====== */
-const ORDER_EMAIL="";   /* ← mettre ici l'e-mail qui reçoit les commandes */
-/* TARIFS DE LIVRAISON (DA) par zone : [domicile, bureau] — à remplacer par la grille IMIR Logistics */
-const ZONES={A:[400,250],B:[600,400],C:[800,550],D:[1300,900]};
+const ORDER_EMAIL="sami2000mca@gmail.com";   /* ← mettre ici l'e-mail qui reçoit les commandes */
+/* TARIFS IMIR LOGISTICS (ECOTRACK) — [domicile, bureau stop desk] pour les wilayas 1 à 58 ; null = tarif non indiqué (à confirmer) */
+const TAR=[[1200,700],[700,400],[800,400],[700,400],[700,400],[700,400],[700,400],[1200,550],[400,250],[700,400],
+[1400,800],[700,400],[700,400],[700,400],[700,400],[450,300],[800,400],[700,400],[700,400],[700,400],
+[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[700,400],[800,450],
+[700,400],[900,450],[2000,1500],[700,400],[650,400],[700,400],[1700,800],[700,400],[800,450],[700,400],
+[700,400],[650,400],[700,400],[700,400],[900,450],[700,400],[800,450],[700,400],[1200,600],null,
+[800,450],[1600,800],[1800,800],null,[800,450],[2000,2000],[800,450],[1000,600]];
 /* PRODUITS : ajoutez un bloc {…} pour chaque nouveau produit */
 const PRODUCTS=[
 {name:"ENSEMBLE JUL",price:12500,sizes:["S","M","L","XL","XXL"],imgs:["ensemble-jul-1.jpg","ensemble-jul-2.jpg"],desc:{fr:"Veste zippée à capuche et pantalon assortis, bleu marine, finition côtelée et logo brodé.",en:"Zip-up hoodie and matching trousers in navy, ribbed finish with embroidered logo.",ar:"سترة بقلنسوة وسحّاب وسروال متناسق، كحلي بتفصيلة مضلّعة وشعار مطرّز."}}
@@ -134,9 +150,9 @@ const DATA="https://cdn.jsdelivr.net/npm/geoalgeria/data/ecommerce/communes.json
 
 /* ====== TEXTES : fr / en / ar ====== */
 const L={
-fr:{dir:"ltr",tag:"Mode homme · Élégance · Qualité",p1:"🚚 Livraison dans toutes les wilayas",p2:"💵 Paiement à la livraison",p3:"↻ Échange sous 7 jours",coll:"Collection",q:"Une question ?",wa:"Appelez-nous : 07 79 92 62 16",size:"Taille",qty:"Quantité",info:"Vos informations",nom:"Nom et prénom",tel:"Numéro de téléphone",adr:"Adresse (rue, cité, n°…)",wil:"Wilaya",com:"Commune",cmd:"Votre commande",sub:"Sous-total",liv:"Expédition",home:"Livraison à domicile",desk:"Livraison au bureau (stop desk)",tot:"TOTAL",cod:"Paiement à la livraison",codn:"Payer en argent comptant à la livraison.",go:"COMMANDER",pick:"— Choisir la wilaya —",pickc:"— Choisir d'abord la wilaya —",pickc2:"— Choisir la commune —",selw:"sélectionnez votre wilaya",da:"DA",sw:"glissez pour voir les photos",e1:"Choisissez une taille.",e2:"Entrez votre nom.",e3:"Numéro de téléphone invalide (ex : 0555 12 34 56).",e4:"Choisissez la wilaya.",e5:"Choisissez la commune.",e6:"Entrez votre adresse.",sending:"Envoi en cours…",fail:"Impossible d'envoyer la commande. Réessayez dans un instant.",nocfg:"La prise de commande n'est pas encore activée.",ok1:"Merci ! Commande reçue",ok2:"Nous vous appellerons très bientôt pour confirmer votre commande et la livraison.",orderno:"N° de commande",back:"Continuer mes achats"},
-en:{dir:"ltr",tag:"Men's fashion · Elegance · Quality",p1:"🚚 Delivery to all wilayas",p2:"💵 Cash on delivery",p3:"↻ Exchange within 7 days",coll:"Collection",q:"Any question?",wa:"Call us: 07 79 92 62 16",size:"Size",qty:"Quantity",info:"Your details",nom:"Full name",tel:"Phone number",adr:"Address (street, area, no.…)",wil:"Wilaya",com:"Commune",cmd:"Your order",sub:"Subtotal",liv:"Shipping",home:"Home delivery",desk:"Pickup point (stop desk)",tot:"TOTAL",cod:"Cash on delivery",codn:"Pay in cash when your order arrives.",go:"PLACE ORDER",pick:"— Choose your wilaya —",pickc:"— Choose the wilaya first —",pickc2:"— Choose your commune —",selw:"select your wilaya",da:"DA",sw:"swipe to see photos",e1:"Choose a size.",e2:"Enter your name.",e3:"Invalid phone number (e.g. 0555 12 34 56).",e4:"Choose your wilaya.",e5:"Choose your commune.",e6:"Enter your address.",sending:"Sending…",fail:"Could not send your order. Please try again in a moment.",nocfg:"Ordering is not activated yet.",ok1:"Thank you! Order received",ok2:"We will call you very soon to confirm your order and the delivery.",orderno:"Order no.",back:"Keep shopping"},
-ar:{dir:"rtl",tag:"أزياء رجالية · أناقة · جودة",p1:"🚚 توصيل إلى جميع الولايات",p2:"💵 الدفع عند الاستلام",p3:"↻ استبدال خلال 7 أيام",coll:"المجموعة",q:"عندك سؤال؟",wa:"اتصل بنا: 07 79 92 62 16",size:"المقاس",qty:"الكمية",info:"معلوماتك",nom:"الاسم واللقب",tel:"رقم الهاتف",adr:"العنوان (الشارع، الحي، الرقم…)",wil:"الولاية",com:"البلدية",cmd:"طلبك",sub:"المجموع الجزئي",liv:"التوصيل",home:"التوصيل إلى المنزل",desk:"التوصيل إلى المكتب (Stop desk)",tot:"المجموع",cod:"الدفع عند الاستلام",codn:"ادفع نقدًا عند استلام طلبك.",go:"اطلب الآن",pick:"— اختر الولاية —",pickc:"— اختر الولاية أولًا —",pickc2:"— اختر البلدية —",selw:"اختر ولايتك",da:"دج",sw:"اسحب لرؤية الصور",e1:"اختر المقاس.",e2:"أدخل اسمك.",e3:"رقم الهاتف غير صحيح (مثال: 0555 12 34 56).",e4:"اختر الولاية.",e5:"اختر البلدية.",e6:"أدخل عنوانك.",sending:"جارٍ الإرسال…",fail:"تعذّر إرسال الطلب. حاول مرة أخرى بعد قليل.",nocfg:"استقبال الطلبات غير مفعّل بعد.",ok1:"شكرًا! تم استلام طلبك",ok2:"سنتصل بك قريبًا لتأكيد طلبك والتوصيل.",orderno:"رقم الطلب",back:"متابعة التسوق"}
+fr:{dir:"ltr",tag:"Mode homme · Élégance · Qualité",h1:"L'élégance masculine, livrée chez vous",h2:"Choisissez votre tenue, commandez en 1 minute et payez à la livraison.",h3:"Voir la collection",new:"Nouveau",p1:"🚚 Livraison dans toutes les wilayas",p2:"💵 Paiement à la livraison",p3:"↻ Échange sous 7 jours",coll:"Collection",q:"Une question ?",wa:"Appelez-nous : 07 79 92 62 16",size:"Taille",qty:"Quantité",info:"Vos informations",nom:"Nom et prénom",tel:"Numéro de téléphone",adr:"Adresse (rue, cité, n°…)",wil:"Wilaya",com:"Commune",cmd:"Votre commande",sub:"Sous-total",liv:"Expédition",home:"Livraison à domicile",desk:"Livraison au bureau (stop desk)",tot:"TOTAL",cod:"Paiement à la livraison",codn:"Payer en argent comptant à la livraison.",go:"COMMANDER",pick:"— Choisir la wilaya —",pickc:"— Choisir d'abord la wilaya —",pickc2:"— Choisir la commune —",selw:"sélectionnez votre wilaya",tbc:"À confirmer",da:"DA",sw:"glissez pour voir les photos",e1:"Choisissez une taille.",e2:"Entrez votre nom.",e3:"Numéro de téléphone invalide (ex : 0555 12 34 56).",e4:"Choisissez la wilaya.",e5:"Choisissez la commune.",e6:"Entrez votre adresse.",sending:"Envoi en cours…",fail:"Impossible d'envoyer la commande. Réessayez dans un instant.",nocfg:"La prise de commande n'est pas encore activée.",ok1:"Merci ! Commande reçue",ok2:"Nous vous appellerons très bientôt pour confirmer votre commande et la livraison.",orderno:"N° de commande",back:"Continuer mes achats"},
+en:{dir:"ltr",tag:"Men's fashion · Elegance · Quality",h1:"Men's elegance, delivered to your door",h2:"Pick your outfit, order in one minute and pay on delivery.",h3:"Shop the collection",new:"New",p1:"🚚 Delivery to all wilayas",p2:"💵 Cash on delivery",p3:"↻ Exchange within 7 days",coll:"Collection",q:"Any question?",wa:"Call us: 07 79 92 62 16",size:"Size",qty:"Quantity",info:"Your details",nom:"Full name",tel:"Phone number",adr:"Address (street, area, no.…)",wil:"Wilaya",com:"Commune",cmd:"Your order",sub:"Subtotal",liv:"Shipping",home:"Home delivery",desk:"Pickup point (stop desk)",tot:"TOTAL",cod:"Cash on delivery",codn:"Pay in cash when your order arrives.",go:"PLACE ORDER",pick:"— Choose your wilaya —",pickc:"— Choose the wilaya first —",pickc2:"— Choose your commune —",selw:"select your wilaya",tbc:"To be confirmed",da:"DA",sw:"swipe to see photos",e1:"Choose a size.",e2:"Enter your name.",e3:"Invalid phone number (e.g. 0555 12 34 56).",e4:"Choose your wilaya.",e5:"Choose your commune.",e6:"Enter your address.",sending:"Sending…",fail:"Could not send your order. Please try again in a moment.",nocfg:"Ordering is not activated yet.",ok1:"Thank you! Order received",ok2:"We will call you very soon to confirm your order and the delivery.",orderno:"Order no.",back:"Keep shopping"},
+ar:{dir:"rtl",tag:"أزياء رجالية · أناقة · جودة",h1:"الأناقة الرجالية تصلك إلى باب بيتك",h2:"اختر إطلالتك، اطلب في دقيقة وادفع عند الاستلام.",h3:"شاهد المجموعة",new:"جديد",p1:"🚚 توصيل إلى جميع الولايات",p2:"💵 الدفع عند الاستلام",p3:"↻ استبدال خلال 7 أيام",coll:"المجموعة",q:"عندك سؤال؟",wa:"اتصل بنا: 07 79 92 62 16",size:"المقاس",qty:"الكمية",info:"معلوماتك",nom:"الاسم واللقب",tel:"رقم الهاتف",adr:"العنوان (الشارع، الحي، الرقم…)",wil:"الولاية",com:"البلدية",cmd:"طلبك",sub:"المجموع الجزئي",liv:"التوصيل",home:"التوصيل إلى المنزل",desk:"التوصيل إلى المكتب (Stop desk)",tot:"المجموع",cod:"الدفع عند الاستلام",codn:"ادفع نقدًا عند استلام طلبك.",go:"اطلب الآن",pick:"— اختر الولاية —",pickc:"— اختر الولاية أولًا —",pickc2:"— اختر البلدية —",selw:"اختر ولايتك",tbc:"يُحدَّد لاحقًا",da:"دج",sw:"اسحب لرؤية الصور",e1:"اختر المقاس.",e2:"أدخل اسمك.",e3:"رقم الهاتف غير صحيح (مثال: 0555 12 34 56).",e4:"اختر الولاية.",e5:"اختر البلدية.",e6:"أدخل عنوانك.",sending:"جارٍ الإرسال…",fail:"تعذّر إرسال الطلب. حاول مرة أخرى بعد قليل.",nocfg:"استقبال الطلبات غير مفعّل بعد.",ok1:"شكرًا! تم استلام طلبك",ok2:"سنتصل بك قريبًا لتأكيد طلبك والتوصيل.",orderno:"رقم الطلب",back:"متابعة التسوق"}
 };
 
 /* ====== LOGIQUE ====== */
@@ -161,7 +177,7 @@ function setL(l){lg=l;try{localStorage.lg=l}catch(e){}
  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
  $("#adr").placeholder=t("adr");
  fillW();fillC();
- $("#grid").innerHTML=PRODUCTS.map((p,i)=>`<button class="card" onclick="openP(${i})"><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"><div><b>${p.name}</b><span>${fmt(p.price)}</span></div></button>`).join("");
+ $("#grid").innerHTML=PRODUCTS.map((p,i)=>`<button class="card" onclick="openP(${i})"><span class="badge">${t("new")}</span><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"><div><b>${p.name}</b><span>${fmt(p.price)}</span></div></button>`).join("");
  if(P)calc()}
 function onWil(){fillC();calc()}
 $("#gal").onscroll=e=>{const g=e.target;$("#cnt").textContent=(Math.round(Math.abs(g.scrollLeft)/g.clientWidth)+1)+" / "+P.imgs.length+" · "+t("sw")};
@@ -174,19 +190,19 @@ function openP(i){P=PRODUCTS[i];size="";qty=1;$("#err").textContent="";$("#form"
 function closeP(){$("#sheet").classList.remove("open");document.body.style.overflow=""}
 function pick(el,s){size=s;[...el.parentNode.children].forEach(b=>b.classList.remove("on"));el.classList.add("on");calc()}
 function setQ(d){qty=Math.max(1,Math.min(10,qty+d));$("#qty").textContent=qty;calc()}
-const rate=w=>ZONES[w.z||"C"];
+const rate=w=>TAR[w.c-1]||null;
 function calc(){const w=gw(),z=w?rate(w):null,sub=P.price*qty;
  $("#li").textContent=P.name+" × "+qty+(size?" — "+size:"");$("#lip").textContent=fmt(sub);$("#sub").textContent=fmt(sub);
- $("#t0").textContent=z?fmt(z[0]):t("selw");$("#t1").textContent=z?fmt(z[1]):t("selw");
+ $("#t0").textContent=!w?t("selw"):z?fmt(z[0]):t("tbc");$("#t1").textContent=!w?t("selw"):z?fmt(z[1]):t("tbc");
  $("#total").textContent=fmt(sub+(z?z[mode]:0))}
 function send(){const v=id=>$("#"+id).value.trim(),w=gw();
  const com=COM.length?v("com"):v("comT");
  const err=!size?t("e1"):!v("nom")?t("e2"):!/^0[567]\d{8}$/.test(v("tel").replace(/\s/g,""))?t("e3"):(mode===0&&!v("adr"))?t("e6"):!w?t("e4"):!com?t("e5"):!ORDER_EMAIL?t("nocfg"):"";
  $("#err").textContent=err;if(err)return;
- const z=rate(w)[mode],no="WDL-"+Date.now().toString(36).slice(-6).toUpperCase();
+ const zz=rate(w),z=zz?zz[mode]:0,no="WDL-"+Date.now().toString(36).slice(-6).toUpperCase();
  const body={_subject:"Nouvelle commande "+no+" — WADOUD DE LUXE",_template:"table",_captcha:"false",
   "N° commande":no,"Produit":P.name,"Taille":size,"Quantité":qty,"Sous-total":P.price*qty+" DA",
-  "Livraison":(mode?"Bureau (stop desk)":"À domicile")+" — "+z+" DA","TOTAL À PAYER":(P.price*qty+z)+" DA",
+  "Livraison":(mode?"Bureau (stop desk)":"À domicile")+" — "+(zz?z+" DA":"tarif à confirmer"),"TOTAL À PAYER":zz?(P.price*qty+z)+" DA":(P.price*qty)+" DA + livraison à confirmer",
   "Nom":v("nom"),"Téléphone":v("tel"),"Wilaya":w.c+" - "+w.fr,"Commune":com,"Adresse":v("adr")||"(bureau)","Langue du client":lg};
  const b=$("#go");b.disabled=true;$("#err").textContent=t("sending");
  fetch("https://formsubmit.co/ajax/"+ORDER_EMAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)})
