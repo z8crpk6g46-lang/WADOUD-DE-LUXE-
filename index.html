@@ -11,7 +11,7 @@
   <div class="topbar">
     <span>🚚 Livraison dans toutes les wilayas</span>
     <span>💳 Paiement à la livraison</span>
-    <span>☎ Service client : 07 12 34 56 78</span>
+    <span>☎ Service client : 07 79 92 62 16</span>
   </div>
 
   <header>
@@ -66,7 +66,7 @@
     <div class="footer-brand">♛<strong>WADOUD DE LUXE</strong><small>Men's Fashion · Élégance · Qualité</small></div>
     <div><h3>Liens utiles</h3><a href="#home">Accueil</a><a href="#new">Nouveautés</a><a href="#products">Produits</a><a href="#promo">Promotions</a></div>
     <div><h3>Informations</h3><a href="#">À propos</a><a href="#">Livraison</a><a href="#">Paiement</a><a href="#">FAQ</a></div>
-    <div><h3>Suivez-nous</h3><p>Instagram · Facebook · TikTok</p><a class="whatsapp" href="https://wa.me/213712345678" target="_blank">WhatsApp : contactez-nous</a></div>
+    <div><h3>Suivez-nous</h3><p>Instagram · Facebook · TikTok</p><a class="whatsapp" href="https://wa.me/213779926216" target="_blank">WhatsApp : contactez-nous</a></div>
   </footer>
   <div class="copyright">© 2026 WADOUD DE LUXE — Tous droits réservés.</div>
 
@@ -96,11 +96,18 @@ function render(list=products){
  grid.innerHTML=list.map((p,i)=>`<article class="product">
    <div class="product-img">${visual(p)}</div>
    <h3>${p.name}</h3><strong>${p.price.toLocaleString("fr-FR")} DA</strong>
-   <small>${p.sizes}</small>
-   <button onclick="addCart()">Ajouter au panier</button>
+   <select id="size-${products.indexOf(p)}" aria-label="Taille" style="width:100%;padding:10px;margin:8px 0;background:#111;color:#fff;border:1px solid #555;border-radius:6px;font-size:16px">
+     ${p.sizes.split(" ").map(z=>`<option value="${z}">Taille ${z}</option>`).join("")}
+   </select>
+   <button onclick="orderWA(${products.indexOf(p)})">Commander sur WhatsApp</button>
  </article>`).join("");
 }
-function addCart(){cart++;count.textContent=cart}
+function orderWA(i){
+ const p=products[i];
+ const size=document.querySelector("#size-"+i).value;
+ const msg="Bonjour WADOUD DE LUXE, je souhaite commander :\n"+p.name+"\nTaille : "+size+"\nPrix : "+p.price.toLocaleString("fr-FR")+" DA";
+ window.open("https://wa.me/213779926216?text="+encodeURIComponent(msg),"_blank");
+}
 document.querySelector("#search").addEventListener("input",e=>{
  const q=e.target.value.toLowerCase();
  render(products.filter(p=>(p.name+" "+p.cat).toLowerCase().includes(q)));
